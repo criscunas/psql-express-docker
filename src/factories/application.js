@@ -3,7 +3,7 @@ import cors from 'cors'
 require('dotenv').config()
 
 export default ({
-
+    router,
 }) => {
     const application = express()
 
@@ -32,6 +32,8 @@ export default ({
             })
         }
     })
+
+    application.use(router)
 
     return application
 

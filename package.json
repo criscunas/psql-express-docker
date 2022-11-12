@@ -4,15 +4,21 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node -r esm ./src/bootstrap"
+    "start": "node -r esm ./src/bootstrap",
+    "dev": "nodemon -r esm ./src/bootstrap"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "awilix": "^8.0.0",
+    "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "esm": "^3.2.25",
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "mongoose": "^6.7.2",
+    "nodemon": "^2.0.20",
+    "passport": "^0.6.0",
+    "passport-jwt": "^4.0.0"
   }
 }
