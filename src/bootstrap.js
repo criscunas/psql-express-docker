@@ -1,22 +1,19 @@
-import { createContainer, asFunction, asValue } from 'awilix'
-import start from './start'
+import { createContainer, asFunction, asValue } from "awilix"
+
+import start from '../src/start'
 
 // setup
 import applicationFactory from './factories/application'
 
-//mongo db
-import mongoFactory from './factories/mongo'
-
-// auth
-import authFactory from './factories/auth'
-import jwtStrategyFactory from './factories/auth/jwt'
+//postgres db
+import postgresConnection from './factories/postgres/index'
 
 //router
 import routerFactory from './factories/router'
 
 //controllers
-import userController from './controller/user'
-import linkController from './controller/link'
+import userController from './controller/user.js'
+import welcomeController from './controller/welcome.js'
 
 const container = createContainer()
 
@@ -28,25 +25,20 @@ container.register({
 
     application: asFunction(applicationFactory).singleton(),
 
-    mongoConnection: asFunction(mongoFactory).singleton(),
-
-    authentication: asFunction(authFactory).singleton(),
-    jwtStrategy: asFunction(jwtStrategyFactory).singleton(),
-
     userController: asFunction(userController).singleton(),
-    linkController: asFunction(linkController).singleton()
+    welcomeController: asFunction(welcomeController).singleton(),
 
+    postgresConnection: asFunction(postgresConnection).singleton()
 })
 
 Promise.all([
-    container.resolve('mongoConnection'),
+    container.resolve('postgresConnection'),
 ]).then(([
-    mongoose,
+    postgres,
 ]) => {
     container.register({
-        mongoose: asValue(mongoose)
+        postgres: asValue(postgres)
     })
 
     container.resolve('start')
 })
-

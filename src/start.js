@@ -1,10 +1,12 @@
 export default ({
-    application,
+    postgres,
+    application
 }) => {
 
     const port = process.env.PORT || 8080
+    const host = process.env.HOST || '0.0.0.0'
     // Start the application, listening on configured port
-    const server = application.listen(port, () => {
+    const server = application.listen(port, host, () => {
         console.log(`Application is listening on port ${process.env.PORT}`)
         console.log('--------------------------------')
 
